@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Blogs from './pages/Blogs';
 import OneBlog from './pages/OneBlog';
+import ErrorPage from './components/Error';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           } />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/oneblog" element={<OneBlog />} />
+          <Route path="*" element={<ErrorPage />} />
 
         </Routes>
         <Footer />

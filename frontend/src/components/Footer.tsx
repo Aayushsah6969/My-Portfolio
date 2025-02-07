@@ -16,7 +16,7 @@ const Footer = () => {
               Let's work together to bring your ideas to life.
             </p>
             <div className="flex gap-4">
-              <SocialLink href="https://github.com" icon={<GitHub />} />
+              <SocialLink href="https://github.com/Aayushsah6969" icon={<GitHub />} />
               <SocialLink href="https://linkedin.com" icon={<Linkedin />} />
               <SocialLink href="https://twitter.com" icon={<Twitter />} />
             </div>
@@ -37,14 +37,14 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-gray-400">
               <li>San Francisco, CA</li>
-              <li>john.doe@example.com</li>
+              <li>email@example.com</li>
               <li>+1 (555) 123-4567</li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} John Doe. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Aayush Sah. All rights reserved.</p>
         </div>
       </div>
     </footer>
