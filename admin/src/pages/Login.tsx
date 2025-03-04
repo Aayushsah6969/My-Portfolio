@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { Lock } from 'lucide-react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Lock } from "lucide-react";
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (login(email, password)) {
-      navigate('/projects');
+    const success = await login(email, password);
+    if (success) {
+      navigate("/projects");
     } else {
-      setError('Invalid credentials');
+      setError("Invalid credentials. Please try again.");
     }
   };
 
@@ -31,9 +32,7 @@ export default function Login() {
         {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Email
-            </label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
             <input
               type="email"
               value={email}
@@ -43,9 +42,7 @@ export default function Login() {
             />
           </div>
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Password
-            </label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
             <input
               type="password"
               value={password}
@@ -64,4 +61,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;

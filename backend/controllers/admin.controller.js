@@ -4,10 +4,10 @@ import Admin from "../models/admin.model.js";
 
 export const loginAdmin = async (req, res) => {
   try {
-    const { email, password, userId } = req.body;
+    const { email, password } = req.body;
 
-    // Check if admin exists with provided email and userId
-    const admin = await Admin.findOne({ email, userId });
+    // Check if admin exists
+    const admin = await Admin.findOne({ email });
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     }
@@ -19,20 +19,21 @@ export const loginAdmin = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: admin._id, userId: admin.userId }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: admin._id, isAdmin: admin.isAdmin }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
-    // Send token in HTTP-only cookie
+    // Set cookie with token
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", // Ensure HTTPS in production
+      sameSite: "Strict",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
+    console.error("Login error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
