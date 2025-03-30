@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 
 const Contact = () => {
   const [result, setResult] = useState("");
@@ -49,17 +49,8 @@ const Contact = () => {
           <p className="text-lg text-gray-600">Let's discuss your project and see how I can help</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="bg-white p-6 rounded-xl shadow-lg">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h3>
-            <div className="space-y-6">
-              <ContactInfo icon={<Mail />} title="Email" content="gmailexample.com" />
-              <ContactInfo icon={<Phone />} title="Phone" content="+1 (555) 123-4567" />
-              <ContactInfo icon={<MapPin />} title="Location" content="San Francisco, CA" />
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-lg">
+        <div className="flex justify-center">
+          <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-xl">
             <form onSubmit={handleSubmit} className="space-y-6">
               <InputField label="Name" name="name" value={formData.name} onChange={handleChange} required />
               <InputField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} required />

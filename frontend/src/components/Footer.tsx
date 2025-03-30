@@ -17,7 +17,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <SocialLink href="https://github.com/Aayushsah6969" icon={<GitHub />} />
-              <SocialLink href="https://linkedin.com" icon={<Linkedin />} />
+              <SocialLink href="https://www.linkedin.com/in/aayush-sah-9076a5299/" icon={<Linkedin />} />
               <SocialLink href="https://twitter.com" icon={<Twitter />} />
             </div>
           </div>

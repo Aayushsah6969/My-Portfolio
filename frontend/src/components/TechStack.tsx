@@ -1,5 +1,4 @@
 import React from 'react';
-import { Database, Globe, Server, Code, Palette, Terminal } from 'lucide-react';
 
 const TechStack = () => {
   return (
@@ -23,9 +22,9 @@ const TechStack = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {techCategories.map((category, index) => (
-            <TechCard key={category.title} {...category} index={index} />
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
+          {allTechnologies.map((tech, index) => (
+            <TechIcon key={`${tech.category}-${tech.name}`} {...tech} index={index} />
           ))}
         </div>
       </div>
@@ -33,116 +32,64 @@ const TechStack = () => {
   );
 };
 
-const TechCard = ({ 
-  icon, 
-  title, 
-  technologies,
+const TechIcon = ({ 
+  imageUrl, 
+  name,
+  category,
   index 
 }: { 
-  icon: React.ReactNode; 
-  title: string; 
-  technologies: Array<{ name: string; level: number }>;
+  imageUrl: string; 
+  name: string;
+  category: string;
   index: number;
 }) => (
   <div 
-    className="group bg-white backdrop-blur-lg bg-opacity-80 p-8 rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.1)] hover:shadow-[0_0_80px_rgba(79,70,229,0.15)] transition-all duration-500 hover:-translate-y-2"
+    className="flex flex-col items-center justify-center p-4 hover:-translate-y-2 transition-transform duration-300"
     style={{
-      animation: `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`,
+      animation: `fadeInUp 0.5s ease-out forwards ${index * 0.05}s`,
       opacity: 0,
       transform: 'translateY(20px)',
     }}
   >
-    <div className="relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-      <div className="relative z-10 flex items-center gap-4 mb-8">
-        <div className="w-16 h-16 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl flex items-center justify-center shadow-inner transform group-hover:scale-110 transition-transform duration-300">
-          <div className="text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text">
-            {icon}
-          </div>
-        </div>
-        <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-          {title}
-        </h3>
-      </div>
+    <div className="w-16 h-16 bg-white bg-opacity-80 rounded-2xl flex items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-300 mb-3">
+      <img src={imageUrl} alt={name} className="w-10 h-10 object-contain" />
     </div>
-
-    <div className="space-y-6">
-      {technologies.map((tech) => (
-        <div key={tech.name} className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-gray-800 font-medium">{tech.name}</span>
-            <span className="text-sm font-medium text-indigo-600">{tech.level}%</span>
-          </div>
-          <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
-            <div 
-              className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transform origin-left transition-all duration-1000 ease-out group-hover:scale-x-100"
-              style={{ 
-                width: `${tech.level}%`,
-                transform: 'scaleX(0.3)',
-              }}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
+    <span className="text-sm font-medium text-gray-800 text-center">{name}</span>
   </div>
 );
 
-const techCategories = [
-  {
-    icon: <Globe className="w-8 h-8" />,
-    title: "Frontend",
-    technologies: [
-      { name: "React & Next.js", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "Tailwind CSS", level: 90 }
-    ]
-  },
-  {
-    icon: <Server className="w-8 h-8" />,
-    title: "Backend",
-    technologies: [
-      { name: "Node.js", level: 90 },
-      { name: "Python", level: 85 },
-      { name: "GraphQL", level: 80 }
-    ]
-  },
-  {
-    icon: <Database className="w-8 h-8" />,
-    title: "Database",
-    technologies: [
-      { name: "PostgreSQL", level: 90 },
-      { name: "MongoDB", level: 85 },
-      { name: "Redis", level: 80 }
-    ]
-  },
-  {
-    icon: <Code className="w-8 h-8" />,
-    title: "Languages",
-    technologies: [
-      { name: "JavaScript", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "Python", level: 85 }
-    ]
-  },
-  {
-    icon: <Terminal className="w-8 h-8" />,
-    title: "DevOps",
-    technologies: [
-      { name: "Docker", level: 85 },
-      { name: "AWS", level: 80 },
-      { name: "CI/CD", level: 85 }
-    ]
-  },
-  {
-    icon: <Palette className="w-8 h-8" />,
-    title: "Design",
-    technologies: [
-      { name: "Figma", level: 90 },
-      { name: "UI/UX", level: 85 },
-      { name: "Design Systems", level: 85 }
-    ]
-  }
+// Create a flat list of all technologies with their icons
+const allTechnologies = [
+  // Frontend
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/react-2.svg", name: "React & Next.js", category: "Frontend" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/typescript.svg", name: "TypeScript", category: "Frontend" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg", name: "Tailwind CSS", category: "Frontend" },
+  
+  // Backend
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg", name: "Node.js", category: "Backend" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/python-5.svg", name: "Python", category: "Backend" },
+  { imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg", name: "GraphQL", category: "Backend" },
+  
+  // Database
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/postgresql.svg", name: "PostgreSQL", category: "Database" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg", name: "MongoDB", category: "Database" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/redis.svg", name: "Redis", category: "Database" },
+  { imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", name: "MySQL", category: "Database" },
+  
+  // Languages
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/logo-javascript.svg", name: "JavaScript", category: "Languages" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/java-4.svg", name: "Java", category: "Languages" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/c.svg", name: "C++", category: "Languages" },
+  
+  // DevOps
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/docker.svg", name: "Docker", category: "DevOps" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/aws-2.svg", name: "AWS", category: "DevOps" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/gitlab.svg", name: "CI/CD", category: "DevOps" },
+  
+  // Design
+  { imageUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", name: "Figma", category: "Design" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/adobe-xd-2.svg", name: "UI/UX", category: "Design" },
+  { imageUrl: "https://cdn.worldvectorlogo.com/logos/material-ui-1.svg", name: "Design Systems", category: "Design" }
 ];
 
 export default TechStack;
