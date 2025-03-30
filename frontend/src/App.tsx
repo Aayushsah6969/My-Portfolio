@@ -27,7 +27,7 @@ function App() {
             </main>
           } />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/oneblog" element={<OneBlog />} />
+          <Route path="/oneblog/:id" element={<OneBlog />} />
           <Route path="*" element={<ErrorPage />} />
 
         </Routes>

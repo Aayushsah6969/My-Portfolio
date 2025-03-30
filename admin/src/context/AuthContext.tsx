@@ -2,26 +2,30 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext(null);
+const API_URL = "http://localhost:3000";
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ Automatically check authentication when the app loads
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/admin/check-auth", { withCredentials: true })
-      .then((response) => {
-        setIsAuthenticated(response.data.isAuthenticated);
-      })
-      .catch(() => {
+    const verifySession = async () => {
+      try {
+        await axios.get(`${API_URL}/admin/verify`, { withCredentials: true });
+        setIsAuthenticated(true);
+      } catch (error) {
         setIsAuthenticated(false);
-      });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    verifySession();
   }, []);
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/admin/login",
+      await axios.post(
+        `${API_URL}/admin/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -33,12 +37,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await axios.post("http://localhost:5000/admin/logout", {}, { withCredentials: true });
-    setIsAuthenticated(false);
+    try {
+      await axios.post(`${API_URL}/admin/logout`, {}, { withCredentials: true });
+    } finally {
+      setIsAuthenticated(false);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
